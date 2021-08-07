@@ -64,17 +64,34 @@ app.get("/users", (req, res) => {
 //4 write code  for save data in mongodb
 //5 Test with post man
 
-app.post("/user", jsonParser, (req, res) => {
-  const data = new Users({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    email: req.body.email,
-    address: req.body.address,
-  });
-  data
-    .save()
+// app.post("/user", jsonParser, (req, res) => {
+//   const data = new Users({
+//     _id: new mongoose.Types.ObjectId(),
+//     name: req.body.name,
+//     email: req.body.email,
+//     address: req.body.address,
+//   });
+//   data
+//     .save()
+//     .then((result) => {
+//       res.status(201).json(result);
+//     })
+//     .catch((err) => {
+//       if (err) {
+//         console.log(err);
+//       }
+//     });
+// });
+
+//delete  api
+//1 Make delete router
+//2 write code for delete data in mongodb
+//3 test with postman
+
+app.delete("/user/:id", (req, res) => {
+  Users.deleteOne({ _id: req.params.id })
     .then((result) => {
-      res.status(201).json(result);
+      res.status(200).json(result);
     })
     .catch((err) => {
       if (err) {
@@ -82,5 +99,7 @@ app.post("/user", jsonParser, (req, res) => {
       }
     });
 });
+
+//put api
 
 app.listen(80);
