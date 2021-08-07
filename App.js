@@ -123,4 +123,14 @@ app.put("/user/:id", jsonParser, (req, res) => {
     });
 });
 
+//serach api
+
+app.get("/search/:name", (req, res) => {
+  var regex = new RegExp(req.params.name, "i"); //i is for small and capital letters
+
+  Users.find({ name: regex }).then((result) => {
+    res.status(200).json(result);
+  });
+});
+
 app.listen(80);
