@@ -102,4 +102,25 @@ app.delete("/user/:id", (req, res) => {
 
 //put api
 
+app.put("/user/:id", jsonParser, (req, res) => {
+  Users.updateOne(
+    { _id: req.params.id },
+    {
+      $set: {
+        name: req.body.name,
+        email: req.body.email,
+        address: req.body.address,
+      },
+    }
+  )
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch((err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+});
+
 app.listen(80);
